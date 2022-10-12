@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def apikeyPropertiesFile = rootProject.file("api.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
+
 android {
     namespace 'com.herev.diego.marvelcharacters'
     compileSdk 32
@@ -15,6 +20,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY'])
+        buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
+        buildConfigField("String", "URL_API", "https://gateway.marvel.com/")
     }
 
     buildTypes {
