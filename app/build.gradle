@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
+
 
 def apikeyPropertiesFile = rootProject.file("api.properties")
 def apikeyProperties = new Properties()
@@ -41,9 +44,12 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     final RETROFIT_VERSION = '2.9.0'
-
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -52,6 +58,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-scalars:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.google.dagger:hilt-android:$HILT_VERSION"
+    kapt "com.google.dagger:hilt-compiler:$HILT_VERSION"
 
 
 
