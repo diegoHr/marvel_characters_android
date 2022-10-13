@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Marvel characters</string>
+    <string name="error_network_default">Network error</string>
+    <string name="rv_character_name" formatted="false">#%s %s</string>
 </resources>

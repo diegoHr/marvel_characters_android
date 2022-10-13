@@ -3,7 +3,17 @@
 buildscript {
     ext {
         HILT_VERSION = '2.44'
+        NAV_VERSION = "2.5.2"
     }
+
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$NAV_VERSION"
+    }
+
+
 }
 
 plugins {
