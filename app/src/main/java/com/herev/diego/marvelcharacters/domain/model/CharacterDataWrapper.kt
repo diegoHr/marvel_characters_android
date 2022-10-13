@@ -1,6 +1,9 @@
 package com.herev.diego.marvelcharacters.domain.model
 
-data class CharacterDataWrapper (val code : Int?, val status : String?,
-                                 val copyright : String?, val attributionText : String?,
-                                 val attributionHTML : String?, val data : CharacterDataContainer?,
-                                 val etag : String?)
+import com.herev.diego.marvelcharacters.network.ApiResponse
+
+class CharacterDataWrapper (code : Int?, status : String?,
+                                 copyright : String?, attributionText : String?,
+                                 attributionHTML : String?, val data : CharacterDataContainer?,
+                                 etag : String?)
+    : ApiResponse(code, status, copyright, attributionText,attributionHTML, etag)
