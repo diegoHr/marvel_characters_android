@@ -1,11 +1,11 @@
 package com.herev.diego.marvelcharacters.domain
 
-import com.herev.diego.marvelcharacters.domain.repositories.CharactersApiRepository
+import com.herev.diego.marvelcharacters.domain.repositories.ICharactersRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class AttributionDataInterceptor @Inject constructor(private val apiRepository: CharactersApiRepository) {
+class AttributionDataInterceptor @Inject constructor(private val apiRepository: ICharactersRepository) {
 
     private val _attribution = MutableStateFlow("")
     val attribution : StateFlow<String> get() = _attribution

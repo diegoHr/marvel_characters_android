@@ -18,7 +18,7 @@ class MarvelApiServiceTest : AbstractTest() {
     @Test
     fun `check request returns 200` () {
         runBlocking {
-            val response = apiService.getCharacters(10, 1)
+            val response = apiService.getCharacters(0, 20)
 
             assertThat(response.isSuccessful, `is`(true))
 

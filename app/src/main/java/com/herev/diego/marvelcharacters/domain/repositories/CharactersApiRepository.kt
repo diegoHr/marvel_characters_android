@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class CharactersApiRepository @Inject constructor(private val apiService: MarvelApiService,
                                                   private val netResponseProcessor: NetResponseProcessor,
-                                                  private val strResProvider : IStringResourceProvider) {
+                                                  private val strResProvider : IStringResourceProvider) : ICharactersRepository {
 
     @Throws(RepositoryException::class)
-    suspend fun getCharactersPage (lastElementIndex : Int, pageSize : Int) : CharacterDataWrapper {
+    override suspend fun getCharactersPage (lastElementIndex : Int, pageSize : Int) : CharacterDataWrapper {
         try {
             return downloadCharactersPage(lastElementIndex, pageSize)
         }catch (apiError : NetResponseProcessor.ApiResponseErrorException){

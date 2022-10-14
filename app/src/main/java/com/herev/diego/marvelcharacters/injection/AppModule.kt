@@ -6,6 +6,7 @@ import com.herev.diego.marvelcharacters.androidConectors.stringResources.IString
 import com.herev.diego.marvelcharacters.androidConectors.stringResources.StringResourceProvider
 import com.herev.diego.marvelcharacters.domain.CharactersDataLake
 import com.herev.diego.marvelcharacters.domain.repositories.CharactersApiRepository
+import com.herev.diego.marvelcharacters.domain.repositories.ICharactersRepository
 import com.herev.diego.marvelcharacters.network.ApiFactory
 import com.herev.diego.marvelcharacters.network.MarvelApiService
 import com.herev.diego.marvelcharacters.network.NetResponseProcessor
@@ -39,14 +40,14 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCharactersApiRepository (apiService: MarvelApiService,
-                                        stringResourceProvider: IStringResourceProvider ) : CharactersApiRepository {
+    fun provideCharactersRepository (apiService: MarvelApiService,
+                                        stringResourceProvider: IStringResourceProvider ) : ICharactersRepository {
         return CharactersApiRepository(apiService, NetResponseProcessor(), stringResourceProvider)
     }
 
     @Provides
     @Singleton
-    fun provideCharactersDataLake ( repository: CharactersApiRepository ) : CharactersDataLake {
+    fun provideCharactersDataLake ( repository: ICharactersRepository) : CharactersDataLake {
         return CharactersDataLake(repository)
     }
 

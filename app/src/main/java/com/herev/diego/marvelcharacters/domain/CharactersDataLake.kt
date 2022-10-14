@@ -1,11 +1,11 @@
 package com.herev.diego.marvelcharacters.domain
 
 import com.herev.diego.marvelcharacters.domain.model.Character
-import com.herev.diego.marvelcharacters.domain.repositories.CharactersApiRepository
+import com.herev.diego.marvelcharacters.domain.repositories.ICharactersRepository
 import com.herev.diego.marvelcharacters.domain.repositories.RepositoryException
 import javax.inject.Inject
 
-class CharactersDataLake @Inject constructor (private val apiRepository: CharactersApiRepository) {
+class CharactersDataLake @Inject constructor (private val apiRepository: ICharactersRepository) {
 
     private val pageSize = 20
 
@@ -22,7 +22,7 @@ class CharactersDataLake @Inject constructor (private val apiRepository: Charact
         if(isNeededDownloadMorePages(indexInitPage)){
             downloadPage()
         }
-        return characters.subList(indexInitPage, indexInitPage+pageSize)
+        return characters.subList(indexInitPage, Math.min(indexInitPage+pageSize, characters.size)).toList()
     }
 
     private fun  isNeededDownloadMorePages (indexInitPage : Int) : Boolean {
