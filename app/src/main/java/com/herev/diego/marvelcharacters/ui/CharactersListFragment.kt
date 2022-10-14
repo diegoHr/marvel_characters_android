@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.herev.diego.marvelcharacters.databinding.FragmentCharactersListBinding
-import com.herev.diego.marvelcharacters.viewModels.MainViewModel
+import com.herev.diego.marvelcharacters.viewModels.CharactersListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.onEach
 @AndroidEntryPoint
 class CharactersListFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel> ()
+    private val viewModel by viewModels<CharactersListViewModel> ()
 
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCharactersListBinding.bind(view)
-        val adapter = RvCharactersAdapter(layoutInflater, requireContext(), viewModel)
+        val adapter = RvCharactersAdapter(layoutInflater, requireContext(), viewModel, this)
         binding.rvCharacters.adapter = adapter
 
         viewModel.loadingMoreCharacters.onEach {
@@ -48,7 +48,7 @@ class CharactersListFragment : Fragment() {
 
         viewModel.attributionData.onEach {
             binding.tvMarvelAttribution.text = HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            binding.tvMarvelAttribution.setMovementMethod(LinkMovementMethod.getInstance());
+            binding.tvMarvelAttribution.setMovementMethod(LinkMovementMethod.getInstance())
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.errorMessage.onEach {

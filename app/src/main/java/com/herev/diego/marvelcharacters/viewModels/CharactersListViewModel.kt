@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val dataLake : CharactersDataLake,
-                                        private val attributionInterceptor : AttributionDataInterceptor) : ViewModel() {
+class CharactersListViewModel @Inject constructor(private val dataLake : CharactersDataLake,
+                                                  private val attributionInterceptor : AttributionDataInterceptor) : ViewModel() {
 
     private val _loadingMoreCharacters = MutableSharedFlow<Boolean>()
 

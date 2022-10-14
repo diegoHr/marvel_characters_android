@@ -9,6 +9,35 @@
         android:id="@+id/characters_list"
         android:name="com.herev.diego.marvelcharacters.ui.CharactersListFragment"
         tools:layout="@layout/fragment_characters_list">
+        <action
+            android:id="@+id/action_list_to_character"
+            app:destination="@id/character"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/character"
+        android:name="com.herev.diego.marvelcharacters.ui.CharacterFragment"
+        tools:layout="@layout/fragment_character">
+        <argument
+            android:name="urls"
+            app:argType="com.herev.diego.marvelcharacters.domain.model.UrlInfo[]"
+            />
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <argument
+            android:name="description"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <argument
+            android:name="image"
+            app:argType="string"
+            android:defaultValue="" />
 
     </fragment>
 

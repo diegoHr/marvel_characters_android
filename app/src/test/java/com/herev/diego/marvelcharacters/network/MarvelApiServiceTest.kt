@@ -20,7 +20,7 @@ class MarvelApiServiceTest : AbstractTest() {
         runBlocking {
             val response = apiService.getCharacters(10, 1)
 
-            assertThat(response.isSuccessful, CoreMatchers.`is`(true))
+            assertThat(response.isSuccessful, `is`(true))
 
             System.out.println(JsonPrettyPrinter().print(response.body()))
 

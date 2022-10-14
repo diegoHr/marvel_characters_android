@@ -3,17 +3,18 @@ package com.herev.diego.marvelcharacters.ui
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.herev.diego.marvelcharacters.R
 import com.herev.diego.marvelcharacters.databinding.RvElementCharacterBinding
 import com.herev.diego.marvelcharacters.databinding.RvElementLoadingBinding
 import com.herev.diego.marvelcharacters.utils.images.ImageUrlGenerator
-import com.herev.diego.marvelcharacters.viewModels.MainViewModel
+import com.herev.diego.marvelcharacters.viewModels.CharactersListViewModel
 
 class RvCharactersAdapter(
     private val inflater: LayoutInflater,
-    private val context: Context, private val viewModel: MainViewModel
+    private val context: Context, private val viewModel: CharactersListViewModel, private val fragment : CharactersListFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val imageUrlGenerator = ImageUrlGenerator(context)
@@ -48,18 +49,28 @@ class RvCharactersAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is CharacterViewHolder){
             viewModel.characters.get(position).let{character ->
+                var imageUrl = ""
                 character.thumbnail?.let { thumbnail ->
+                    imageUrl = imageUrlGenerator.getUrlImage(thumbnail)
                     holder.binding.ivCharacter.apply {
                         Glide.with(context)
-                            .load(imageUrlGenerator.getUrlImage(thumbnail))
+                            .load(imageUrl)
                             .centerCrop()
                             .into(this)
                     }
 
-                }
 
-                holder.binding.tvName.text = context.getString(R.string.rv_character_name,
+                }
+                val name = context.getString(R.string.rv_character_name,
                     character.id?:"#" ,character.name)
+                holder.binding.tvName.text = name
+                holder.binding.root.setOnClickListener {
+                    fragment.findNavController().navigate(
+                        CharactersListFragmentDirections.actionListToCharacter(
+                            character.urls.toTypedArray(), name, character.description ?: "", imageUrl,
+                        )
+                    )
+                }
 
             }
         }else if(holder is LoadingViewHolder){
